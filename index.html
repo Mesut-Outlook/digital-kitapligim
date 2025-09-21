@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Dijital Kitaplığım</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" title="Ana sayfaya dön">
+                    <i class="fas fa-book-open"></i>
+                    <h1>Dijital Kitaplığım</h1>
+                </div>
+                <div class="stats">
+                    <div class="stat-item" title="Tüm kitapları göster">
+                        <span class="stat-number" id="totalBooks">0</span>
+                        <span class="stat-label">Kitap</span>
+                    </div>
+                    <div class="stat-item" title="Yazarları göster">
+                        <span class="stat-number" id="totalAuthors">0</span>
+                        <span class="stat-label">Yazar</span>
+                    </div>
+                    <div class="stat-item" title="Türleri göster">
+                        <span class="stat-number" id="totalGenres">0</span>
+                        <span class="stat-label">Tür</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search and Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Kitap adı, yazar veya türe göre ara...">
+                    <button class="clear-search" id="clearSearch">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="filter-controls">
+                    <select id="genreFilter" class="filter-select">
+                        <option value="">Tüm Türler</option>
+                    </select>
+                    
+                    <select id="sortBy" class="filter-select">
+                        <option value="title">Kitap Adına Göre</option>
+                        <option value="author">Yazara Göre</option>
+                        <option value="genre">Türe Göre</option>
+                        <option value="date">Tarihe Göre</option>
+                    </select>
+                    
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Groups Section -->
+    <section class="authors-section" id="authorsSection">
+        <div class="container">
+            <h2><i class="fas fa-users"></i> Yazarlara Göre Gruplandırılmış</h2>
+            <div class="authors-grid" id="authorsGrid">
+                <!-- Authors will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="books-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-books"></i> Kitap Koleksiyonu</h2>
+                <div class="results-info">
+                    <span id="resultsCount">0 kitap gösteriliyor</span>
+                </div>
+            </div>
+            <div class="books-grid" id="booksGrid">
+                <!-- Books will be loaded here -->
+            </div>
+            
+            <!-- Loading indicator -->
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Kitaplar yükleniyor...</span>
+            </div>
+            
+            <!-- No results message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Sonuç bulunamadı</h3>
+                <p>Arama kriterlerinize uygun kitap bulunamadı.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Modal -->
+    <div class="modal" id="bookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="book-cover-placeholder">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="book-details">
+                    <p><strong>Yazar:</strong> <span id="modalAuthor"></span></p>
+                    <p><strong>Tür:</strong> <span id="modalGenre"></span></p>
+                    <p><strong>Dosya Türü:</strong> <span id="modalFileType"></span></p>
+                    <p><strong>Eklenme Tarihi:</strong> <span id="modalDate"></span></p>
+                    <p><strong>Dosya Yolu:</strong> <span id="modalFilePath" class="file-path"></span></p>
+                    <div class="path-actions">
+                        <button class="path-btn" id="copyPathBtn" title="Dosya yolunu kopyala">
+                            <i class="fas fa-copy"></i> Kopyala
+                        </button>
+                        <button class="path-btn" id="openFolderBtn" title="Klasörü aç">
+                            <i class="fas fa-folder-open"></i> Klasör
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="scrollToTop" title="Başa dön">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

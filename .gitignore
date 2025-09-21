@@ -1,0 +1,21 @@
+# CSV Dosyaları (çok büyük olduğu için)
+*.csv
+Harddisk_Kutuphanesi.csv
+
+# Node modules
+node_modules/
+
+# Log dosyaları
+*.log
+
+# OS dosyaları
+.DS_Store
+Thumbs.db
+
+# IDE dosyaları
+.vscode/
+.idea/
+
+# Temporary dosyalar
+*.tmp
+*.temp
