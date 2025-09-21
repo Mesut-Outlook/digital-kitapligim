@@ -1,7 +1,3 @@
-# CSV Dosyaları (çok büyük olduğu için)
-*.csv
-Harddisk_Kutuphanesi.csv
-
 # Node modules
 node_modules/
 
