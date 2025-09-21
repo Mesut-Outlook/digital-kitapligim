@@ -454,8 +454,7 @@ const loadBooks = async () => {
         
         // Sırayla denenecek dosyalar
         const filesToTry = [
-            { url: 'kitaplar.zip', type: 'zip', description: 'Sıkıştırılmış veritabanı' },
-            { url: 'Harddisk_Kutuphanesi.csv', type: 'csv', description: 'Ana veritabanı' },
+            { url: 'kitaplar.zip', type: 'zip', description: 'Ana veritabanı (sıkıştırılmış)' },
             { url: 'sample_kitaplar.csv', type: 'csv', description: 'Örnek veritabanı' }
         ];
         
