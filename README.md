@@ -67,15 +67,30 @@ python -m http.server 8000
 
 4. Tarayıcınızda `http://localhost:8000` adresine gidin
 
+## � Veri Dosyaları
+
+Kitap verileri iki dosyada bulunmaktadır:
+
+### Ana Veri Dosyası
+- **`kitaplar.zip`** (1.5 MB) - 49,873 kitap içeren sıkıştırılmış veritabanı
+  - Git LFS ile yönetilir
+  - Vercel'de otomatik olarak yüklenir ve açılır
+  - JSZip kütüphanesi ile client-side açılır
+
+### Yedek Veri Dosyası  
+- **`sample_kitaplar.csv`** (757 bytes) - 10 örnek kitap
+  - Fallback dosyası olarak kullanılır
+  - Ana dosya yüklenemezse otomatik olarak devreye girer
+
+Uygulama, her iki dosyayı da otomatik olarak destekler ve uygun olanını yükler.
+
 ### 📝 Kendi Veritabanınızı Kullanma
-- Mevcut `Harddisk_Kutuphanesi.csv` dosyasını kendi CSV'nizle değiştirin
+- Kendi CSV dosyanızı sıkıştırıp `kitaplar.zip` olarak yükleyin
+- Veya doğrudan CSV dosyasını ana dizine ekleyin
 - Aynı format yapısını kullanın (aşağıya bakın)
 
 ### CSV Dosya Formatı
-Kitap verileri `Harddisk_Kutuphanesi.csv` dosyasında aşağıdaki formatta olmalıdır:
-
-### CSV Dosya Formatı
-Kitap verileri `Harddisk_Kutuphanesi.csv` dosyasında aşağıdaki formatta olmalıdır:
+Kitap verileri CSV dosyasında aşağıdaki formatta olmalıdır:
 
 ```csv
 title,author,fileName,fileExtension,filePath,addedDate
@@ -111,7 +126,8 @@ Bu proje büyük veritabanı dosyası için **Git LFS (Large File Storage)** kul
 ├── 📄 index.html          # Ana HTML dosyası
 ├── 🎨 styles.css          # CSS stilleri
 ├── ⚡ script.js           # JavaScript fonksiyonları
-├── 📊 kitaplar.csv        # Kitap veritabanı
+├── � kitaplar.zip        # Sıkıştırılmış kitap veritabanı (Git LFS)
+├── 📊 sample_kitaplar.csv # Örnek/fallback veri dosyası
 └── 📖 README.md           # Dokümantasyon
 ```
 
@@ -150,11 +166,11 @@ Bu repository **gerçek bir kitap koleksiyonu** içerir:
 - ✅ Tam dosya yolları
 
 ### 📁 Veritabanı Detayları
-- **Dosya:** `Harddisk_Kutuphanesi.csv`
-- **Boyut:** 10.8 MB
-- **Format:** CSV (UTF-8)
-- **Depolama:** Git LFS (Large File Storage)
-- **Erişim:** Doğrudan web'den yüklenebilir
+- **Ana Dosya:** `kitaplar.zip` (1.5 MB)
+- **Yedek Dosya:** `sample_kitaplar.csv` (757 bytes)
+- **Format:** CSV (UTF-8) - ZIP içinde sıkıştırılmış
+- **Depolama:** Ana dosya Git LFS ile, yedek dosya normal git ile
+- **Erişim:** Otomatik fallback sistemi ile her zaman erişilebilir
 
 ## 🎯 Özellikler Detayı
 
