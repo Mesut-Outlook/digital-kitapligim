@@ -4,7 +4,9 @@ Modern ve kullanıcı dostu bir web tabanlı kitaplık uygulaması. Binlerce kit
 
 ## 🚀 Canlı Demo
 
-[GitHub Pages Demo](https://mesut-outlook.github.io/digital-kitapligim/) (Yakında)
+**[🌐 Canlı Demo - GitHub Pages](https://mesut-outlook.github.io/digital-kitapligim/)**
+
+*49,873 kitaplık gerçek koleksiyon ile çalışır!*
 
 ## ✨ Özellikler
 
@@ -43,16 +45,20 @@ Modern ve kullanıcı dostu bir web tabanlı kitaplık uygulaması. Binlerce kit
 
 ## 🚀 Kurulum
 
-### Hızlı Başlangıç
+### 🌐 Hızlı Kullanım (Önerilen)
+**[Canlı Demo'yu ziyaret edin](https://mesut-outlook.github.io/digital-kitapligim/)** - Kurulum gerektirmez!
+
+### 💻 Yerel Kurulum
 1. Repository'yi klonlayın:
 ```bash
 git clone https://github.com/Mesut-Outlook/digital-kitapligim.git
 cd digital-kitapligim
 ```
 
-2. Kendi kitap veritabanınızı ekleyin:
-   - `sample_kitaplar.csv` dosyasını `Harddisk_Kutuphanesi.csv` olarak yeniden adlandırın
-   - Veya kendi CSV dosyanızı `Harddisk_Kutuphanesi.csv` adıyla kaydedin
+2. **Büyük dosyalar için Git LFS gerekli:**
+```bash
+git lfs pull
+```
 
 3. Web sunucusunu başlatın:
 ```bash
@@ -60,6 +66,10 @@ python -m http.server 8000
 ```
 
 4. Tarayıcınızda `http://localhost:8000` adresine gidin
+
+### 📝 Kendi Veritabanınızı Kullanma
+- Mevcut `Harddisk_Kutuphanesi.csv` dosyasını kendi CSV'nizle değiştirin
+- Aynı format yapısını kullanın (aşağıya bakın)
 
 ### CSV Dosya Formatı
 Kitap verileri `Harddisk_Kutuphanesi.csv` dosyasında aşağıdaki formatta olmalıdır:
@@ -80,6 +90,15 @@ Suç ve Ceza,Fyodor Dostoyevski,Fyodor Dostoyevski - Suç ve Ceza.epub,epub,E:\K
 - `fileExtension` - Dosya uzantısı (pdf, epub, mobi, txt vb.)
 - `filePath` - Tam dosya yolu
 - `addedDate` - Eklenme tarihi (ISO format)
+
+### 🔧 Git LFS Hakkında
+Bu proje büyük veritabanı dosyası için **Git LFS (Large File Storage)** kullanır:
+- Büyük dosyalar Git geçmişini şişirmez
+- Daha hızlı clone ve pull işlemleri
+- GitHub'ın 100MB dosya limitini aşma imkanı
+- Otomatik olarak büyük dosyalar yönetilir
+
+**Not:** Repository'yi klonladıktan sonra `git lfs pull` komutunu çalıştırmanız gerekebilir.
 
 ### Klavye Kısayolları
 - `Ctrl+K` - Arama kutusuna odaklan
@@ -120,14 +139,22 @@ Suç ve Ceza,Fyodor Dostoyevski,Fyodor Dostoyevski - Suç ve Ceza.epub,epub,E:\K
 - Event delegation
 - Local storage desteği (gelecek sürüm)
 
-## 📊 İstatistikler
+## 📊 Canlı İstatistikler
 
-Bu kitaplık uygulaması:
-- ✅ Binlerce kitabı destekler
-- ✅ Çok sayıda yazar
-- ✅ 20+ farklı tür kategorisi
+Bu repository **gerçek bir kitap koleksiyonu** içerir:
+- ✅ **49,873 kitap** (Git LFS ile)
+- ✅ Binlerce yazar
+- ✅ 20+ akıllı kategori
+- ✅ 10.8 MB veritabanı
 - ✅ Türkçe karakter desteği
-- ✅ Akıllı tür kategorilendirmesi
+- ✅ Tam dosya yolları
+
+### 📁 Veritabanı Detayları
+- **Dosya:** `Harddisk_Kutuphanesi.csv`
+- **Boyut:** 10.8 MB
+- **Format:** CSV (UTF-8)
+- **Depolama:** Git LFS (Large File Storage)
+- **Erişim:** Doğrudan web'den yüklenebilir
 
 ## 🎯 Özellikler Detayı
 
