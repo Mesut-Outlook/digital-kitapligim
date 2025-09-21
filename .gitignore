@@ -15,3 +15,7 @@ Thumbs.db
 # Temporary dosyalar
 *.tmp
 *.temp
+
+# Build outputs
+dist/
+build/

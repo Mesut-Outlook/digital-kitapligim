@@ -452,12 +452,46 @@ const loadBooks = async () => {
         elements.booksGrid.style.display = 'none';
         elements.authorsSection.style.display = 'none';
         
-        const response = await fetch('Harddisk_Kutuphanesi.csv');
-        if (!response.ok) {
-            throw new Error('CSV dosyası yüklenemedi');
+        // Sırayla denenecek dosyalar
+        const filesToTry = [
+            { url: 'kitaplar.zip', type: 'zip', description: 'Sıkıştırılmış veritabanı' },
+            { url: 'Harddisk_Kutuphanesi.csv', type: 'csv', description: 'Ana veritabanı' },
+            { url: 'sample_kitaplar.csv', type: 'csv', description: 'Örnek veritabanı' }
+        ];
+        
+        let csvText;
+        let loadedFrom = '';
+        
+        for (const file of filesToTry) {
+            try {
+                console.log(`${file.description} deneniyor: ${file.url}`);
+                
+                if (file.type === 'zip') {
+                    const zipResponse = await fetch(file.url);
+                    if (zipResponse.ok) {
+                        const zipBlob = await zipResponse.blob();
+                        csvText = await extractCSVFromZip(zipBlob);
+                        loadedFrom = file.description;
+                        break;
+                    }
+                } else {
+                    const csvResponse = await fetch(file.url);
+                    if (csvResponse.ok) {
+                        csvText = await csvResponse.text();
+                        loadedFrom = file.description;
+                        break;
+                    }
+                }
+            } catch (fileError) {
+                console.log(`${file.description} yüklenemedi:`, fileError);
+                continue;
+            }
         }
         
-        const csvText = await response.text();
+        if (!csvText) {
+            throw new Error('Hiçbir veri dosyası yüklenemedi');
+        }
+        
         booksData = parseCSV(csvText);
         
         // Group books by author
@@ -481,13 +515,57 @@ const loadBooks = async () => {
         elements.loading.style.display = 'none';
         elements.authorsSection.style.display = 'block';
         
+        // Başarı mesajı göster
+        if (loadedFrom.includes('Örnek')) {
+            showToast('Örnek veritabanı yüklendi. Kendi CSV dosyanızı ekleyebilirsiniz.', 'info');
+        } else {
+            showToast(`${loadedFrom} başarıyla yüklendi (${booksData.length.toLocaleString('tr-TR')} kitap)`, 'success');
+        }
+        
     } catch (error) {
         console.error('Hata:', error);
         elements.loading.innerHTML = `
             <i class="fas fa-exclamation-triangle"></i>
             <span>Kitaplar yüklenirken bir hata oluştu: ${error.message}</span>
+            <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                <p>Muhtemel çözümler:</p>
+                <ul style="text-align: left; margin-top: 0.5rem;">
+                    <li>Sayfayı yenileyin (F5)</li>
+                    <li>İnternet bağlantınızı kontrol edin</li>
+                    <li>Birkaç dakika sonra tekrar deneyin</li>
+                    <li>Tarayıcı cache'ini temizleyin</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    <strong>Not:</strong> Site örnek verilerle çalışabilir, ana veritabanı yüklenene kadar bekleyin.
+                </p>
+            </div>
         `;
     }
+};
+
+// ZIP dosyasından CSV çıkarma fonksiyonu
+const extractCSVFromZip = async (zipBlob) => {
+    // JSZip kütüphanesini dinamik olarak yükle
+    if (!window.JSZip) {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        document.head.appendChild(script);
+        
+        // Script yüklenene kadar bekle
+        await new Promise((resolve, reject) => {
+            script.onload = resolve;
+            script.onerror = reject;
+        });
+    }
+    
+    const zip = await JSZip.loadAsync(zipBlob);
+    const csvFile = Object.keys(zip.files).find(name => name.endsWith('.csv'));
+    
+    if (!csvFile) {
+        throw new Error('ZIP içinde CSV dosyası bulunamadı');
+    }
+    
+    return await zip.files[csvFile].async('text');
 };
 
 // Event Listeners
